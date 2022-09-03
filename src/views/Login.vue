@@ -22,8 +22,11 @@
         </el-form-item>
 
         <el-form-item class="loginButton">
-          <el-button type="primary" @click="submitForm('loginForm')"
-            style="width:100%;">登录</el-button
+          <el-button
+            type="primary"
+            @click="submitForm('loginForm')"
+            style="width: 100%"
+            >登录</el-button
           >
         </el-form-item>
       </el-form>
@@ -66,7 +69,14 @@ export default {
     submitForm(loginForm) {
       this.$refs[loginForm].validate((valid) => {
         if (valid) {
-          alert("Submit!");
+          this.postRequest("/user/login", this.loginInfo).then((resp) => {
+            console.log(resp);
+            this.$message({
+              message: "登录成功！",
+              type: "success",
+            });
+            this.$router.push('/')
+          });
         } else {
           console.log("error!");
         }
@@ -98,11 +108,10 @@ export default {
   margin: 0 auto;
 }
 
-.loginTitle{
-    height: 60px;
-    text-align: center;
-    color: #505458;
-    line-height: 60px;
+.loginTitle {
+  height: 60px;
+  text-align: center;
+  color: #505458;
+  line-height: 60px;
 }
-
 </style>
